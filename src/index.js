@@ -200,7 +200,7 @@ function displayAddressDetails(addressDetails) {
     }
   }*/
   detailsHTML.style.display = "block";
-  detailsHTML.innerHTML = "<p>" + JSON.stringify(SON.parse(addressDetails),null,2) + "</p>";
+  detailsHTML.innerHTML = "<p>" + JSON.stringify(JSON.parse(addressDetails),null,2) + "</p>";
 }
 
 function toggleCountry(country) {
