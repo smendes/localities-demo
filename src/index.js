@@ -356,7 +356,7 @@ function initUI() {
 
 const script = document.createElement("script");
 script.src =
-  "https://sdk.woosmap.com/map/map.js?key=woos-48c80350-88aa-333e-835a-07f4b658a9a4&callback=initMap";
+  "https://sdk.woosmap.com/map/map.js?key=woos-afefb9b4-238c-3c6a-a036-9b630b6ca775&callback=initMap";
 script.defer = true;
 window.initMap = function () {
   myMap = new woosmap.map.Map(document.getElementById("map"), {
