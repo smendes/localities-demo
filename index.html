@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Woosmap Address API Autocomplete</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css"
+    />
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="map"></div>
+      <div class="options">
+        <label class="bold">Env:</label>
+        <select id="env-select">
+          <option value="">Select an Env...</option>
+          <option selected value="dev">Develop</option>
+          <option value="prod">Production</span></option>
+          <option value="pr" id="pr-deploy">PR deploy</option>
+        </select>
+        <label class="bold" for="components-select">Components: </label>
+        <div id="active-restrictions">No active restrictions...</div>
+        <div class="multiselect">
+          <div class="selectBox">
+            <button>Set country restriction...</button>
+          </div>
+        </div>
+        <label class="bold">Fields:</label>
+        <div>
+          <input type="checkbox" id="geometry" name="fields" value="geometry" />
+          <label for="geometry">Geometry <i>only</i></label>
+        </div>
+        <label for="types-select" class="bold">Types:</label>
+        <select id="types-select">
+          <option value="">Select a type...</option>
+          <option selected value="locality">Locality</option>
+          <option value="postal_code">Postal code</option>
+          <option value="address">Address</option>
+          <option value="airport">Airport</option>
+          <option value="tourist_attraction">Tourist Attraction</option>
+          <option value="amusement_park">Amusement Park</option>
+          <option value="admin_level">Admin Level</option>
+        </select>
+        <label class="bold">Geographic bias</label>
+        <div>
+          <input type="checkbox" id="bias-checkbox" name="bias" value="bias"/>
+          <label for="bias">Geographic bias</label>
+        </div>
+        <div id="bias-params">
+          <label id="bias-location-label" for="bias-location-input" class="bold">Location</label>
+          <input id="bias-location-input" type="text"placeholder="Bias coordinates"/>
+          <label for="bias-location-label" for="bias-radius-input" class="bold">Radius</label>
+          <input id="bias-radius-input" type="text"placeholder="Bias radius"/>
+        </div>
+      </div>
+
+      <div class="addressDetails options"></div>
+      <div class="autocomplete-input-container">
+        <div class="autocomplete-input">
+          <input
+            id="input"
+            autocomplete="off"
+            type="text"
+            placeholder="Search an Address..."
+          />
+        </div>
+        <div class="autocomplete-results-container">
+          <div class="autocomplete-results"></div>
+        </div>
+      </div>
+    </div>
+    <div id="countries" class="options"></div>
+    <div id="bgOverlay"></div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
