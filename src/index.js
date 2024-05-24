@@ -1,196 +1,23 @@
+import "./styles.css";
+import { isoCountries } from "./countries.js";
+import {
+  debounce,
+  autocompleteAddress,
+  getDetailsAddress
+} from "./autocomplete.js";
+import $ from "jquery";
+import { selectize } from "@selectize/selectize";
+import "./bias_controller";
+import BiasController from "./bias_controller";
 let myMap;
 let markerAddress;
+let viewpointAddress;
 let componentsRestriction = [];
 let detailsPublicId;
+let location;
 let biasCircle;
 let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
-
-
-class BiasController {
-  constructor() {
-    this.location = null;
-    this.radius = null;
-    this.enabled = false;
-  }
-  init() {
-    biasParamDiv;
-  }
-  setBias(loc, radius) {
-    this.enable();
-    this.location = loc;
-    if (radius) {
-      this.radius = radius;
-    }
-  }
-  getLocation() {
-    return this.enabled ? this.location : null;
-  }
-  setRadius(radius) {
-    this.radius = radius;
-  }
-  getRadius() {
-    return this.radius;
-  }
-  enable() {
-    this.enabled = true;
-  }
-  disable() {
-    this.enabled = false;
-  }
-}
-
-var targetPR = "";
-const environments = {
-  prod: {
-    woosmap_key: "woos-48c80350-88aa-333e-835a-07f4b658a9a4",
-    url: "https://api.woosmap.com/localities/"
-  },
-  dev: {
-    woosmap_key: "woos-fd3ad9c8-d9ef-3abc-94e0-f0b6e5c8d39c",
-    url: `https://develop-api.woosmap.com/localities/`
-  },
-  pr: {
-    woosmap_key: "woos-fd3ad9c8-d9ef-3abc-94e0-f0b6e5c8d39c",
-    url: ""
-  }
-};
-
-function getTargetEnvironment() {
-  var selectedEnvironment = document.getElementById("env-select").value;
-  console.log(
-    `** ${selectedEnvironment.toUpperCase()} ** ${
-      environments[selectedEnvironment].url
-    }`
-  );
-  return environments[selectedEnvironment];
-}
-
-document.getElementById("env-select").addEventListener("change", (e) => {
-  if (document.getElementById("env-select").value === "pr") {
-    targetPR = prompt("Which PR should we target today?");
-
-    if (targetPR) {
-      const prNumber = /\d+/.exec(targetPR);
-      environments.pr.url = `https://develop-api.woosmap.com/${targetPR}/localities/`;
-      document.getElementById("pr-deploy").innerText = `PR ${prNumber}`;
-    }
-  }
-});
-
-const isoCountries = [
-  { id: "FR", text: "France" },
-  { id: "MC", text: "Monaco" },
-  { id: "GB", text: "United Kingdom" },
-  { id: "IT", text: "Italy" },
-  { id: "DE", text: "Germany" },
-  { id: "ES", text: "Spain" },
-  { id: "BE", text: "Belgium" },
-  { id: "CH", text: "Switzerland" },
-  { id: "US", text: "USA" },
-  { id: "CN", text: "China" },
-  { id: "BR", text: "Brazil" },
-  { id: "pt", text: "Portugal" },
-  { id: "", text: "null" }
-];
-
-
-const lang = "it";
- function autocompleteAddress(
-  input,
-  components,
-  types,
-  location,
-  radius
-) {
-  const env = getTargetEnvironment();
-  const args = {
-    key: env.woosmap_key,
-    input,
-    //language: lang,
-    //cc_format: "alpha2",
-    //no_deprecated_fields: "true"
-    //extended: "postal_code",
-    data: "advanced",
-  };
-
-  if (location) {
-    args.location = location;
-  }
-  if (radius) {
-    args.radius = radius;
-  }
-
-  if (components !== "") {
-    args.components = components;
-  }
-  if (types !== "") {
-    args.types = types;
-  }
-  //args.types = "address|locality|postal_code";
-  //args.types = "locality";
-  //args.types = "locality|postal_code";
-  // args.types = "address";
-  //args.types = "poi|airport|hospital";
-  //args.types = "hospital";
-  //args.types = "country|admin_level";
-  return fetch(`${env.url}autocomplete/?${buildQueryString(args)}`).then(
-    (response) => response.json()
-  );
-}
-
- function getDetailsAddress(publicId, fields) {
-  const env = getTargetEnvironment();
-  const args = {
-    key: env.woosmap_key,
-    language: lang,
-    public_id: publicId,
-    //fields: "geometry"
-  };
-
-  if (fields) {
-    args.fields = fields;
-  }
-
-  return fetch(`${env.url}details/?${buildQueryString(args)}`).then(
-    (response) => response.json()
-  );
-}
-
- function buildQueryString(params) {
-  const queryStringParts = [];
-
-  for (let key in params) {
-    if (params.hasOwnProperty(key)) {
-      let value = params[key];
-      queryStringParts.push(
-        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-      );
-    }
-  }
-  return queryStringParts.join("&");
-}
-
- function debounce(func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    const later = () => {
-      timeout = null;
-      if (!immediate) {
-        func.apply(context, args);
-      }
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) {
-      func.apply(context, args);
-    }
-  };
-}
-
 
 function requestDetailsAddress(public_id) {
   detailsPublicId = public_id;
@@ -583,4 +410,3 @@ function updateBiasCircle(latlng) {
 document.head.appendChild(script);
 
 initUI();
-

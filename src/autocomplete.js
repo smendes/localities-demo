@@ -1,5 +1,6 @@
+import { getTargetEnvironment } from "./environment_select";
 const lang = "it";
- function autocompleteAddress(
+export function autocompleteAddress(
   input,
   components,
   types,
@@ -42,7 +43,7 @@ const lang = "it";
   );
 }
 
- function getDetailsAddress(publicId, fields) {
+export function getDetailsAddress(publicId, fields) {
   const env = getTargetEnvironment();
   const args = {
     key: env.woosmap_key,
@@ -60,7 +61,7 @@ const lang = "it";
   );
 }
 
- function buildQueryString(params) {
+export function buildQueryString(params) {
   const queryStringParts = [];
 
   for (let key in params) {
@@ -74,7 +75,7 @@ const lang = "it";
   return queryStringParts.join("&");
 }
 
- function debounce(func, wait, immediate) {
+export function debounce(func, wait, immediate) {
   let timeout;
   return function () {
     const context = this;

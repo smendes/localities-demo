@@ -1,4 +1,4 @@
-const isoCountries = [
+export const isoCountries = [
     { id: "FR", text: "France" },
     { id: "MC", text: "Monaco" },
     { id: "GB", text: "United Kingdom" },

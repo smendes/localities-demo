@@ -14,7 +14,7 @@ const environments = {
   }
 };
 
-function getTargetEnvironment() {
+export function getTargetEnvironment() {
   var selectedEnvironment = document.getElementById("env-select").value;
   console.log(
     `** ${selectedEnvironment.toUpperCase()} ** ${

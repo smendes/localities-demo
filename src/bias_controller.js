@@ -1,4 +1,4 @@
-class BiasController {
+export default class BiasController {
     constructor() {
       this.location = null;
       this.radius = null;
