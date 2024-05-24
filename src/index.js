@@ -1,4 +1,3 @@
-import "./styles.css";
 import { isoCountries } from "./countries.js";
 import {
   debounce,
