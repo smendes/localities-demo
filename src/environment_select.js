@@ -1,15 +1,15 @@
 var targetPR = "";
 const environments = {
   prod: {
-    woosmap_key: "woos-48c80350-88aa-333e-835a-07f4b658a9a4",
+    woosmap_key: "woos-afefb9b4-238c-3c6a-a036-9b630b6ca775",
     url: "https://api.woosmap.com/localities/"
   },
   dev: {
-    woosmap_key: "woos-fd3ad9c8-d9ef-3abc-94e0-f0b6e5c8d39c",
+    woosmap_key: "woos-f3399eaa-1f01-33cd-a0db-ce1e23b7320d",
     url: `https://develop-api.woosmap.com/localities/`
   },
   pr: {
-    woosmap_key: "woos-fd3ad9c8-d9ef-3abc-94e0-f0b6e5c8d39c",
+    woosmap_key: "woos-f3399eaa-1f01-33cd-a0db-ce1e23b7320d",
     url: ""
   }
 };

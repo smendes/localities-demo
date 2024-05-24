@@ -1,5 +1,5 @@
 import { getTargetEnvironment } from "./environment_select.js";
-const lang = "it";
+const lang = "fr";
 export function autocompleteAddress(
   input,
   components,
