@@ -1,20 +1,17 @@
 //import "./styles.css";
-import { isoCountries } from "src/countries.js";
+/*import { isoCountries } from "src/countries.js";
 import {
   debounce,
   autocompleteAddress,
   getDetailsAddress
-} from "src/autocomplete.js";
+} from "src/autocomplete.js";*/
 import $ from "jquery";
-import { selectize } from "@selectize/selectize";
-import "src/bias_controller";
-import BiasController from "./bias_controller";
+//import "src/bias_controller";
+//import BiasController from "./bias_controller";
 let myMap;
 let markerAddress;
-let viewpointAddress;
 let componentsRestriction = [];
 let detailsPublicId;
-let location;
 let biasCircle;
 let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
