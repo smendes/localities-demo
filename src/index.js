@@ -169,7 +169,7 @@ function bold_matched_substring(string, matched_substrings) {
 
 function displayAddressDetails(addressDetails) {
   const detailsHTML = document.querySelector(".addressDetails");
-  /*detailsHTML.innerHTML = "";
+  detailsHTML.innerHTML = "";
   detailsHTML.style.display = "block";
   if (addressDetails.public_id) {
     detailsHTML.innerHTML += `<p>Public id : <br /><span class='bold'>${addressDetails.public_id}</span></p>`;
@@ -198,9 +198,9 @@ function displayAddressDetails(addressDetails) {
       }
       detailsHTML.innerHTML += `<b>Address components:</b><p>${compoHtml}</p>`;
     }
-  }*/
-  detailsHTML.style.display = "block";
-  detailsHTML.innerHTML = "<p>" + JSON.stringify(JSON.parse(addressDetails),null,2) + "</p>";
+  }
+  //detailsHTML.style.display = "block";
+  //detailsHTML.innerHTML = "<p>" + JSON.stringify(JSON.parse(addressDetails),null,2) + "</p>";
 }
 
 function toggleCountry(country) {
