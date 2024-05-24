@@ -199,7 +199,8 @@ function displayAddressDetails(addressDetails) {
       detailsHTML.innerHTML += `<b>Address components:</b><p>${compoHtml}</p>`;
     }
   }*/
-  detailsHTML.innerHTML = JSON.stringify(addressDetails,null,2);
+  detailsHTML.style.display = "block";
+  detailsHTML.innerHTML = "<p>" + JSON.stringify(addressDetails,null,2) + "</p>";
 }
 
 function toggleCountry(country) {
