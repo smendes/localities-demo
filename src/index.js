@@ -4,7 +4,6 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
-import $ from 'jquery'
 import "./bias_controller.js";
 import BiasController from "./bias_controller.js";
 let myMap;
