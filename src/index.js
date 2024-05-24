@@ -7,8 +7,8 @@ import {
 } from "./autocomplete.js";
 //import $ from "jquery";
 //import { selectize } from "@selectize/selectize";
-import "./bias_controller";
-import BiasController from "./bias_controller";
+import "./bias_controller.js";
+import BiasController from "./bias_controller.js";
 let myMap;
 let markerAddress;
 let viewpointAddress;
