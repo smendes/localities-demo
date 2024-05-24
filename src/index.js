@@ -5,8 +5,8 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
-import $ from "jquery";
-import { selectize } from "@selectize/selectize";
+//import $ from "jquery";
+//import { selectize } from "@selectize/selectize";
 import "./bias_controller";
 import BiasController from "./bias_controller";
 let myMap;
