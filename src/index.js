@@ -7,7 +7,7 @@ import {
 } from "src/autocomplete.js";*/
 //import $ from "jquery";
 //import "src/bias_controller";
-//import BiasController from "./bias_controller";
+import BiasController from "./bias_controller";
 let myMap;
 let markerAddress;
 let componentsRestriction = [];
