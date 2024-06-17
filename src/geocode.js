@@ -8,7 +8,7 @@ export function localitiesReverseGeocode(
   const env = getTargetEnvironment();
   const args = {
     key: env.woosmap_key,
-    latlng: latlng,
+    latlng: latlng.lat + "," +latlng.lng,
   };
   if (components !== "") {
     args.components = components;
