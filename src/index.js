@@ -4,6 +4,9 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
+import {
+  localitiesReverseGeocode
+} from "./geocode.js";
 import "./bias_controller.js";
 import BiasController from "./bias_controller.js";
 let myMap;
@@ -385,7 +388,18 @@ window.initMap = function () {
 };
 
 function geocode(latlng) {
-    console.log({latlng})
+
+  let components = componentsRestriction.map(({ id }) => `country:${id}`);
+  components = components.join("|");
+  let types = "";
+  types = Array.from(types_change.selectedOptions)
+    .map((o) => o.value)
+    .join("|");
+  
+  localitiesReverseGeocode(latlng,components,types).then(({result}) => {
+            console.log({result})
+      });
+
 }
 
 function updateBiasCircle(latlng) {
