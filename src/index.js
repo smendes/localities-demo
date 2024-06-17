@@ -396,8 +396,8 @@ function geocode(latlng) {
     .map((o) => o.value)
     .join("|");
   
-  localitiesReverseGeocode(latlng,components,types).then((results) => {
-            console.log(results[0].formatted_address)
+  localitiesReverseGeocode(latlng,components,types).then((response) => {
+            console.log(response.results[0].formatted_address)
       });
 
 }
