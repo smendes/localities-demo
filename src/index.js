@@ -379,7 +379,14 @@ window.initMap = function () {
   myMap.addListener("rightclick", (event) => {
     updateBiasCircle(event.latlng);
   });
+  myMap.addListener("click", (event) => {
+    geocode(event.latlng);
+  });
 };
+
+function geocode(latlng) {
+    console.log({latlng})
+}
 
 function updateBiasCircle(latlng) {
   if (biasCircle == null) {
