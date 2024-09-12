@@ -1,5 +1,13 @@
 import { getTargetEnvironment } from "./environment_select.js";
 const lang = "fr";
+
+const queryParams = new URLSearchParams(window.location.search);
+
+  if (queryParams.get("language") != null) {
+    lang = queryParams.get("language");
+  }
+
+
 export function autocompleteAddress(
   input,
   components,
