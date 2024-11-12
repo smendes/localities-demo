@@ -19,6 +19,8 @@ let biasCircle;
 let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
 
+let extended = false;
+
 function requestDetailsAddress(public_id) {
   detailsPublicId = public_id;
   const fields = [
@@ -97,6 +99,7 @@ function displayAddress() {
     value,
     components,
     types,
+    extended,
     biasController.getLocation(),
     biasController.getRadius()
   ).then(({ localities }) => {
@@ -253,6 +256,7 @@ function initUI() {
   const results = document.querySelector(".autocomplete-results");
   const input = document.querySelector(".autocomplete-input > input");
   const geometry = document.querySelector("input[name='fields']");
+  const extendedCheckbox = document.getElementById("extended-checkbox");
   const biasCheckbox = document.getElementById("bias-checkbox");
   let biasParamDiv = document.getElementById("bias-params");
 
@@ -299,6 +303,19 @@ function initUI() {
         hideCountriesList();
       }
       e.stopPropagation();
+    },
+    true
+  );
+
+  extendedCheckbox.addEventListener(
+    "change",
+    (e) => {
+      if (extendedCheckbox.checked) {
+        extended=true;
+      } else {
+        extended=false;
+      }
+      displayAddress();
     },
     true
   );
