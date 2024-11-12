@@ -12,6 +12,7 @@ export function autocompleteAddress(
   input,
   components,
   types,
+  extended,
   location,
   radius
 ) {
@@ -25,6 +26,10 @@ export function autocompleteAddress(
     //extended: "postal_code",
     data: "advanced",
   };
+
+  if (extended) {
+    args.extended = "postal_code";
+  }
 
   if (location) {
     args.location = location;
