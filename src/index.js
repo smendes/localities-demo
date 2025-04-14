@@ -153,7 +153,7 @@ function fetchSuggestions(response, isProd) {
     if (prediction.categories) {
       predictionTypes = prediction.categories[0];
     }
-    html +=   `<li prediction-id=${prediction_id} class="prediction">
+    html +=   `<li prediction-id=${prediction_id} class="prediction ${isProd ? "disabled" : ""}">
                 <div class="localities-result-title">
                   ${formatted_name}
                   <span class="localities-result-description">${formatted_description}</span>
