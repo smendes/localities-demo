@@ -79,7 +79,9 @@ p {
 }
 
 .autocomplete-results-container {
-  display: none;
+  position: relative; /* pour que les ul en position absolute se basent sur ce conteneur */
+  display: flex;
+  gap: 16px;
 }
 
 .autocomplete-title {
@@ -182,7 +184,6 @@ p {
   max-width: 320px;
   width: 100%;
   top: 100%;
-  left: 0;
   z-index: 1;
   list-style: none;
   max-height: 80vh;
