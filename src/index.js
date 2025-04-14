@@ -105,7 +105,7 @@ function displayAddress() {
   ).then((localities) => {
     results.innerHTML = "";
     results.parentElement.style.display = "none";
-    console.logs("localities results:",localities);
+    console.log("localities results:",localities);
     let html = "";
     for (let item in localities || []) {
       let prediction = item;
