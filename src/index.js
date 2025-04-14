@@ -151,7 +151,7 @@ function displayAddress() {
       result.addEventListener("click", () => {
         results.style.display = "none";
         results.parentElement.style.display = "none";
-        const predictionId = parseInt(result.getAttribute("prediction-id"), 10);
+        const predictionId = result.getAttribute("prediction-id");
         document.getElementById("input").value = result.textContent.trim();
         requestDetailsAddress(predictionId);
       });
