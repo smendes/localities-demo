@@ -77,7 +77,7 @@ export function getDetailsAddress(publicId, fields) {
   }
 
   return fetch(`${env.url}details/?${buildQueryString(args)}`).then(
-    (response) => response.json()
+    (response) => {if (endpoint == "autocomplete") {response.json().localities;} else if (endpoint == "search") {response.json().results;}  }
   );
 }
 
