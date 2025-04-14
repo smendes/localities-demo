@@ -126,7 +126,7 @@ function fetchSuggestions(response, isProd) {
   results.parentElement.style.display = "none";
   let html = "";
   let items = [];
-  if (endpoint == "search") { items = response.results } else { items = response.localities }
+  if (endpoint == "search" || endpoint == "geocode") { items = response.results } else { items = response.localities }
   for (let item of items) {
     console.log("localities " + endpoint + ":", item);
     let prediction = item;
