@@ -4,7 +4,7 @@ import {
   autocompleteSearch,
   getDetails,
   autocompleteSearchInProd
-} from "./autocomplete.js";
+} from "./autocomplete_search.js";
 import { getTargetEnpoint } from "./endpoint_select.js";
 import {
   localitiesReverseGeocode
