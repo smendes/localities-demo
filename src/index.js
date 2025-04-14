@@ -106,7 +106,7 @@ function displayAddress(inProd) {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then((response) => fetchSuggestions(results));
+  ).then((response) => fetchSuggestions(response, results));
 
 
   const resultsCompare = document.querySelector(".autocomplete-results-compare");
@@ -118,10 +118,10 @@ function displayAddress(inProd) {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then((response) => fetchSuggestions(resultsCompare));
+  ).then((response) => fetchSuggestions(response, resultsCompare));
 }
 
-function fetchSuggestions(results) {
+function fetchSuggestions(response, results) {
     const endpoint = getTargetEnpoint();
     results.innerHTML = "";
     results.parentElement.style.display = "none";
