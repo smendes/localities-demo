@@ -102,14 +102,16 @@ function displayAddress() {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then(({ localities }) => {
+  ).then((localities) => {
     results.innerHTML = "";
     results.parentElement.style.display = "none";
+    console.logs("localities results:",localities
     let html = "";
-    for (let prediction_id in localities || []) {
-      let prediction = localities[prediction_id];
+    for (let item in localities || []) {
+      let prediction = item;
+      let prediction_id = public_id
       let predictionClass = "no-viewpoint";
-      let predictionTypes = prediction.type;
+      let predictionTypes = prediction.types[0];
 
       let matched_substrings = prediction.matched_substrings;
       let formatted_name = "";
