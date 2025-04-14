@@ -13,7 +13,7 @@ import "./bias_controller.js";
 import BiasController from "./bias_controller.js";
 let myMap;
 let markerAddress;
-let componentsRestriction = ['fr'];
+let componentsRestriction = [];
 let biasCircle;
 let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
@@ -167,7 +167,7 @@ function fetchSuggestions(response, isProd) {
   results.parentElement.style.display = "flex";
 
   if (isProd) {
-    const data = results.querySelectorAll(".prediction").;
+    const data = results.querySelectorAll(".prediction");
 
     for (let result of data) {
       result.addEventListener("click", () => {
