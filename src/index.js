@@ -109,7 +109,7 @@ function displayAddress() {
     let html = "";
     for (let item in localities || []) {
       let prediction = item;
-      let prediction_id = public_id
+      let prediction_id = item.public_id
       let predictionClass = "no-viewpoint";
       let predictionTypes = prediction.types[0];
 
