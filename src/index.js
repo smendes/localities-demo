@@ -166,21 +166,26 @@ function fetchSuggestions(response, isProd) {
   results.innerHTML = html;
   results.style.display = "block";
   results.parentElement.style.display = "flex";
+  
+  const data = results.querySelectorAll(".prediction");
 
-  if (!isProd) {
-    const data = results.querySelectorAll(".prediction");
+  for (let result of data) {
 
-    for (let result of data) {
-      const name = result.querySelector('localities-result-title').textContent
-      result.addEventListener("click", () => {
-        results.style.display = "none";
-        results.parentElement.style.display = "none";
-        const predictionId = result.getAttribute("prediction-id");
-        document.getElementById("input").value = name;
-        requestDetails(predictionId);
-      });
-    }
+    if (result.classList.contains("disabled")) continue;
+
+    const titleElement = result.querySelector('.localities-result-title');
+    if (!titleElement) continue; // sécurité si l'élément est absent
+
+    const name = titleElement.textContent;
+    result.addEventListener("click", () => {
+      results.style.display = "none";
+      results.parentElement.style.display = "none";
+      const predictionId = result.getAttribute("prediction-id");
+      document.getElementById("input").value = name;
+      requestDetails(predictionId);
+    });
   }
+  
 }
 
 function displayResultDetails(result) {
@@ -400,6 +405,7 @@ const script = document.createElement("script");
 script.src =
   "https://sdk.woosmap.com/map/map.js?key=woos-afefb9b4-238c-3c6a-a036-9b630b6ca775&callback=initMap";
 script.defer = true;
+
 window.initMap = function () {
   myMap = new woosmap.map.Map(document.getElementById("map"), {
     center: { lat: 48.8534, lng: 2.3488 },
