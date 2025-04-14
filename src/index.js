@@ -4,7 +4,7 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
-import { getTargetEnpoint } from "./endpoint_select.js";
+import { getTargetEnpoint } from "./endpoint_select.js";
 import {
   localitiesReverseGeocode
 } from "./geocode.js";
@@ -21,8 +21,6 @@ let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
 
 let extended = false;
-
-let endpoint = getTargetEnpoint();
 
 function requestDetailsAddress(public_id) {
   detailsPublicId = public_id;
@@ -106,6 +104,7 @@ function displayAddress() {
     biasController.getLocation(),
     biasController.getRadius()
   ).then((response) => {
+    const endpoint = getTargetEnpoint();
     results.innerHTML = "";
     results.parentElement.style.display = "none";
     let html = "";
