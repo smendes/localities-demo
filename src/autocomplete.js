@@ -30,7 +30,9 @@ export function autocompleteAddress(
   if (extended) {
     args.extended = "postal_code";
   }
-
+  if (env.endpoint == "search") {
+    args.location = "0,0";
+  }
   if (location) {
     args.location = location;
   }
@@ -51,7 +53,8 @@ export function autocompleteAddress(
   //args.types = "poi|airport|hospital";
   //args.types = "hospital";
   //args.types = "country|admin_level";
-  return fetch(`${env.url}autocomplete/?${buildQueryString(args)}`).then(
+  
+  return fetch(`${env.url}${env.endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
 }
