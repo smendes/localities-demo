@@ -125,7 +125,12 @@ function displayAddress() {
           matched_substrings.description
         );
       } else {
-        formatted_name = prediction["description"];
+        if (endpoint == "search") {
+          formatted_name = prediction["title"] + " (" + prediction["description"] + ")";
+        }
+        else {
+          formatted_name = prediction["description"];
+        }
       }
       if (prediction.postal_codes) {
         formatted_name += ` (${prediction.postal_codes.join(", ")})`;
