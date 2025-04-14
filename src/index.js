@@ -166,7 +166,7 @@ function fetchSuggestions(response, isProd) {
   results.style.display = "block";
   results.parentElement.style.display = "flex";
 
-  if (isProd) {
+  if (!isProd) {
     const data = results.querySelectorAll(".prediction");
 
     for (let result of data) {
@@ -181,43 +181,33 @@ function fetchSuggestions(response, isProd) {
   }
 }
 
-function bold_matched_substring(string, matched_substrings) {
-  if (matched_substrings) {
-    matched_substrings = matched_substrings.reverse();
-    for (let substring of matched_substrings) {
-      let char = string.substring(
-        substring["offset"],
-        substring["offset"] + substring["length"]
-      );
-      string = `${string.substring(
-        0,
-        substring["offset"]
-      )}<span class='bold'>${char}</span>${string.substring(
-        substring["offset"] + substring["length"]
-      )}`;
-    }
-  }
-  return string;
-}
-
 function displayResultDetails(result) {
   const detailsHTML = document.querySelector(".addressDetails");
   detailsHTML.innerHTML = "";
   detailsHTML.style.display = "block";
   if (result.public_id) {
-    detailsHTML.innerHTML += `<p>Public id : <br /><span class='bold'>${result.public_id}</span></p>`;
+    detailsHTML.innerHTML += `<p>Public id: <br /><span class='bold'>${result.public_id}</span></p>`;
   }
   if (result.formatted_address) {
-    detailsHTML.innerHTML += `<p>Description : <span class='bold'>${result.formatted_address}</span></p>`;
+    detailsHTML.innerHTML += `<p>Fromatted Address: <span class='bold'>${result.formatted_address}</span></p>`;
+  }
+  if (result.title) {
+    detailsHTML.innerHTML += `<p>Title: <span class='bold'>${result.title}</span></p>`;
+  }
+  if (result.name) {
+    detailsHTML.innerHTML += `<p>Name: <span class='bold'>${result.name}</span></p>`;
+  }
+  if (result.description) {
+    detailsHTML.innerHTML += `<p>Description: <span class='bold'>${result.description}</span></p>`;
   }
   if (result.types) {
-    detailsHTML.innerHTML += `<p>Types : <span class='bold'>${result.types[0].replace(
+    detailsHTML.innerHTML += `<p>Types: <span class='bold'>${result.types[0].replace(
       "_",
       " "
     )}</span></p>`;
   }
   if (result.categories) {
-    detailsHTML.innerHTML += `<p>Categories : <span class='bold'>${result.categories[0].replace(
+    detailsHTML.innerHTML += `<p>Categories: <span class='bold'>${result.categories[0].replace(
       "_",
       " "
     )}</span></p>`;
@@ -225,11 +215,11 @@ function displayResultDetails(result) {
   if (result.geometry) {
     const location_type_string = result.geometry.accuracy;
     if (location_type_string) {
-      detailsHTML.innerHTML += `<p>Location type : <span class='bold'>${location_type_string
+      detailsHTML.innerHTML += `<p>Location type: <span class='bold'>${location_type_string
         .replace("_", " ")
         .toLowerCase()}</span></p>`;
     }
-    detailsHTML.innerHTML += `<p>Latitude : <span class='bold'>${result.geometry.location.lat.toString()}</span> <br>Longitude : <span class='bold'>${result.geometry.location.lng.toString()}</span></p>`;
+    detailsHTML.innerHTML += `<p>Latitude: <span class='bold'>${result.geometry.location.lat.toString()}</span> <br>Longitude: <span class='bold'>${result.geometry.location.lng.toString()}</span></p>`;
     if (result.address_components) {
       let compoHtml = "";
       for (let compo of result.address_components) {
