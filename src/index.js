@@ -3,8 +3,7 @@ import {
   debounce,
   autocompleteAddress,
   getDetailsAddress,
-  autocompleteAddressInProd,
-  getDetailsAddressInProd
+  autocompleteAddressInProd
 } from "./autocomplete.js";
 import { getTargetEnpoint } from "./endpoint_select.js";
 import {
@@ -14,10 +13,7 @@ import "./bias_controller.js";
 import BiasController from "./bias_controller.js";
 let myMap;
 let markerAddress;
-let viewpointAddress;
 let componentsRestriction = ['fr'];
-let detailsPublicId;
-let location;
 let biasCircle;
 let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
@@ -117,11 +113,12 @@ function displayAddress(inProd) {
 }
 
 function fetchSuggestions(response, isProd) {
+  let results;
   if (isProd) {
-    const results = document.querySelector(".autocomplete-results");
+    results = document.querySelector(".autocomplete-results");
   }
   else {
-    const resultsCompare = document.querySelector(".autocomplete-results-compare");
+    results = document.querySelector(".autocomplete-results-compare");
   }
   const endpoint = getTargetEnpoint();
   results.innerHTML = "";
@@ -241,8 +238,6 @@ function displayAddressDetails(addressDetails) {
       detailsHTML.innerHTML += `<b>Address components:</b><p>${compoHtml}</p>`;
     }
   }
-  //detailsHTML.style.display = "block";
-  //detailsHTML.innerHTML = "<p>" + JSON.stringify(JSON.parse(addressDetails),null,2) + "</p>";
 }
 
 function toggleCountry(country) {
@@ -291,10 +286,8 @@ function initUI() {
   const overlayCb = document.getElementById("bgOverlay");
   const results = document.querySelector(".autocomplete-results");
   const input = document.querySelector(".autocomplete-input > input");
-  const geometry = document.querySelector("input[name='fields']");
   const extendedCheckbox = document.getElementById("extended-checkbox");
   const biasCheckbox = document.getElementById("bias-checkbox");
-  let biasParamDiv = document.getElementById("bias-params");
 
   var types_select = $(document.getElementById("types-select")).selectize({
     create: true,
