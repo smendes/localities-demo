@@ -12,7 +12,7 @@ import {
 import "./bias_controller.js";
 import BiasController from "./bias_controller.js";
 let myMap;
-let markerAddress;
+let markerDetailsResult;
 let componentsRestriction = [];
 let detailsPublicId;
 let biasCircle;
@@ -27,18 +27,18 @@ function requestDetails(public_id) {
     ...document.querySelectorAll('input[name="fields"]:checked')
   ].map((e) => e.value);
 
-  getDetails(public_id, fields.join("|")).then((addressDetails) => {
-    displayResultDetails(addressDetails.result);
+  getDetails(public_id, fields.join("|")).then((result) => {
+    displayResultDetails(result.result);
 
-    let lat = addressDetails.result.geometry.location.lat;
-    let lng = addressDetails.result.geometry.location.lng;
+    let lat = result.result.geometry.location.lat;
+    let lng = result.result.geometry.location.lng;
     let markerPosition = {
       lat,
       lng
     };
-    if (addressDetails.result.geometry.viewport) {
-      let northeast = addressDetails.result.geometry.viewport.northeast;
-      let southwest = addressDetails.result.geometry.viewport.southwest;
+    if (result.result.geometry.viewport) {
+      let northeast = result.result.geometry.viewport.northeast;
+      let southwest = result.result.geometry.viewport.southwest;
       const shape = [
         { lat: northeast.lat, lng: northeast.lng },
         { lat: southwest.lat, lng: northeast.lng },
@@ -56,20 +56,20 @@ function requestDetails(public_id) {
       });
       polygon.setMap(myMap);
     } else {
-      if (addressDetails.result.types[0] === "locality") {
+      if (result.result.types[0] === "locality") {
         myMap.setZoom(8);
-      } else if (addressDetails.result.types[0] === "postal code") {
+      } else if (result.result.types[0] === "postal code") {
         myMap.setZoom(6);
       } else {
         myMap.setZoom(16);
       }
     }
     myMap.panTo(markerPosition);
-    if (markerAddress) {
-      markerAddress.setMap(null);
-      markerAddress = null;
+    if (markerDetailsResult) {
+      markerDetailsResult.setMap(null);
+      markerDetailsResult = null;
     }
-    markerAddress = new woosmap.map.Marker({
+    markerDetailsResult = new woosmap.map.Marker({
       position: markerPosition,
       icon: {
         url: "https://images.woosmap.com/dot-marker.png",
@@ -79,7 +79,7 @@ function requestDetails(public_id) {
         }
       }
     });
-    markerAddress.setMap(myMap);
+    markerDetailsResult.setMap(myMap);
   });
 }
 
@@ -160,7 +160,10 @@ function fetchSuggestions(response, isProd) {
         predictionTypes += "," + subtype;
       }
     }
-    html += `<div class="prediction ${predictionClass}" prediction-id=${prediction_id}>${formatted_name} (${predictionTypes})</div>`;
+    html +=   `<div prediction-id=${prediction_id} class="prediction">
+                <div class="localities-result-title" ${formatted_name}</div>
+                <div class="localities-result-type">${predictionTypes}</div>
+              </div>`;
   }
 
   results.innerHTML = html;
@@ -201,39 +204,39 @@ function bold_matched_substring(string, matched_substrings) {
   return string;
 }
 
-function displayResultDetails(addressDetails) {
+function displayResultDetails(result) {
   const detailsHTML = document.querySelector(".addressDetails");
   detailsHTML.innerHTML = "";
   detailsHTML.style.display = "block";
-  if (addressDetails.public_id) {
-    detailsHTML.innerHTML += `<p>Public id : <br /><span class='bold'>${addressDetails.public_id}</span></p>`;
+  if (result.public_id) {
+    detailsHTML.innerHTML += `<p>Public id : <br /><span class='bold'>${result.public_id}</span></p>`;
   }
-  if (addressDetails.formatted_address) {
-    detailsHTML.innerHTML += `<p>Description : <span class='bold'>${addressDetails.formatted_address}</span></p>`;
+  if (result.formatted_address) {
+    detailsHTML.innerHTML += `<p>Description : <span class='bold'>${result.formatted_address}</span></p>`;
   }
-  if (addressDetails.types) {
-    detailsHTML.innerHTML += `<p>Types : <span class='bold'>${addressDetails.types[0].replace(
+  if (result.types) {
+    detailsHTML.innerHTML += `<p>Types : <span class='bold'>${result.types[0].replace(
       "_",
       " "
     )}</span></p>`;
   }
-  if (addressDetails.categories) {
-    detailsHTML.innerHTML += `<p>Categories : <span class='bold'>${addressDetails.categories[0].replace(
+  if (result.categories) {
+    detailsHTML.innerHTML += `<p>Categories : <span class='bold'>${result.categories[0].replace(
       "_",
       " "
     )}</span></p>`;
   }
-  if (addressDetails.geometry) {
-    const location_type_string = addressDetails.geometry.accuracy;
+  if (result.geometry) {
+    const location_type_string = result.geometry.accuracy;
     if (location_type_string) {
       detailsHTML.innerHTML += `<p>Location type : <span class='bold'>${location_type_string
         .replace("_", " ")
         .toLowerCase()}</span></p>`;
     }
-    detailsHTML.innerHTML += `<p>Latitude : <span class='bold'>${addressDetails.geometry.location.lat.toString()}</span> <br>Longitude : <span class='bold'>${addressDetails.geometry.location.lng.toString()}</span></p>`;
-    if (addressDetails.address_components) {
+    detailsHTML.innerHTML += `<p>Latitude : <span class='bold'>${result.geometry.location.lat.toString()}</span> <br>Longitude : <span class='bold'>${result.geometry.location.lng.toString()}</span></p>`;
+    if (result.address_components) {
       let compoHtml = "";
-      for (let compo of addressDetails.address_components) {
+      for (let compo of result.address_components) {
         compoHtml += `${compo.types[0]}: <span class='bold'>${compo.long_name}</span><br>`;
       }
       detailsHTML.innerHTML += `<b>Address components:</b><p>${compoHtml}</p>`;

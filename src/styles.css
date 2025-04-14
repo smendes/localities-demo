@@ -190,3 +190,34 @@ p {
 #countries label {
   display: block;
 }
+
+
+
+
+.localities-result-title {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.8rem;
+}
+
+.localities-result-description {
+  font-weight: lighter;
+  color: #333;
+  font-size: 0.6rem;
+}
+
+.localities-result-category {
+  color: #c46500;
+  font-size: 0.6rem;
+  font-style: italic;
+  align-self: flex-end;
+}
+
+.localities-result-type {
+  color: #000000;
+  font-size: 0.6rem;
+  font-style: italic;
+  align-self: flex-end;
+}
