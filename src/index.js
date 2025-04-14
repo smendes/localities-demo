@@ -110,7 +110,7 @@ function displayAddress() {
     let html = "";
     let items = [];
     if (endpoint == "search") {items = response.results} else {items = response.localities}
-    console.log("localities results:",items);
+    console.log("localities " + endpoint + ":",items);
     for (let item in items) {
       let prediction = item;
       let prediction_id = item.public_id
