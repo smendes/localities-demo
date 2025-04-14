@@ -143,7 +143,8 @@ function fetchSuggestions(response, isProd) {
       );
     } else {
       if (endpoint == "search") {
-        formatted_name = prediction["title"] + " - " + prediction["description"];
+        formatted_name = prediction["title"];
+        formatted_description = prediction["description"];
       }
       else {
         formatted_name = prediction["description"];
@@ -155,15 +156,16 @@ function fetchSuggestions(response, isProd) {
     if (prediction.viewpoint) {
       predictionClass = "has-viewpoint";
     }
-    if (prediction.subtypes) {
-      for (let subtype of prediction.subtypes) {
-        predictionTypes += "," + subtype;
-      }
+    if (prediction.categories) {
+      predictionTypes = prediction.categories[0];
     }
-    html +=   `<div prediction-id=${prediction_id} class="prediction">
-                <div class="localities-result-title" ${formatted_name}</div>
-                <div class="localities-result-type">${predictionTypes}</div>
-              </div>`;
+    html +=   `<li prediction-id=${prediction_id} class="prediction">
+                <div class="localities-result-title">
+                  ${formatted_name}
+                  <span class="localities-result-description">${formatted_description}</span>
+                  <span class="localities-result-type">${predictionTypes}</span>
+                </div>
+              </li>`;
   }
 
   results.innerHTML = html;
