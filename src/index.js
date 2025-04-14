@@ -193,13 +193,13 @@ function displayAddressDetails(addressDetails) {
   if (addressDetails.formatted_address) {
     detailsHTML.innerHTML += `<p>Description : <span class='bold'>${addressDetails.formatted_address}</span></p>`;
   }
-  if (addressDetails.types[0]) {
+  if (addressDetails.types) {
     detailsHTML.innerHTML += `<p>Types : <span class='bold'>${addressDetails.types[0].replace(
       "_",
       " "
     )}</span></p>`;
   }
-  if (addressDetails.categories[0]) {
+  if (addressDetails.categories) {
     detailsHTML.innerHTML += `<p>Categories : <span class='bold'>${addressDetails.categories[0].replace(
       "_",
       " "
