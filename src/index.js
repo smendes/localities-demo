@@ -116,10 +116,10 @@ function displayResult(inProd) {
 function fetchSuggestions(response, isProd) {
   let results;
   if (isProd) {
-    results = document.querySelector(".autocomplete-results");
+    results = document.querySelector(".suggestions-list");
   }
   else {
-    results = document.querySelector(".autocomplete-results-compare");
+    results = document.querySelector(".suggestions-list-compare");
   }
   const endpoint = getTargetEnpoint();
   results.innerHTML = "";
@@ -284,7 +284,8 @@ function initUI() {
   const multiSelect = document.querySelector(".multiselect");
   const countries = document.getElementById("countries");
   const overlayCb = document.getElementById("bgOverlay");
-  const results = document.querySelector(".autocomplete-results");
+  const results = document.querySelector(".suggestions-list");
+  const resultsCompare = document.querySelector(".suggestions-list-compare");
   const input = document.querySelector(".autocomplete-input > input");
   const extendedCheckbox = document.getElementById("extended-checkbox");
   const biasCheckbox = document.getElementById("bias-checkbox");
