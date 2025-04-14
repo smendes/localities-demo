@@ -136,6 +136,7 @@ function fetchSuggestions(response, isProd) {
 
     let matched_substrings = prediction.matched_substrings;
     let formatted_name = "";
+    let formatted_description = "";
     if (prediction.matched_substrings) {
       formatted_name = bold_matched_substring(
         prediction["description"],
