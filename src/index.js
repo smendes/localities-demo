@@ -116,10 +116,10 @@ function displayResult(inProd) {
 function fetchSuggestions(response, isProd) {
   let results;
   if (isProd) {
-    results = document.getElementById("autocomplete-results");
+    results = document.getElementById("autocomplete-results-compare");
   }
   else {
-    results = document.getElementById("autocomplete-results-compare");
+    results = document.getElementById("autocomplete-results");
   }
   const endpoint = getTargetEnpoint();
   results.innerHTML = "";
