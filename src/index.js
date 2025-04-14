@@ -115,7 +115,7 @@ function displayAddress() {
       let prediction = item;
       let prediction_id = item.public_id
       let predictionClass = "no-viewpoint";
-      let predictionTypes = prediction.types[0];
+      let predictionTypes = item.types[0];
 
       let matched_substrings = prediction.matched_substrings;
       let formatted_name = "";
