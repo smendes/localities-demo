@@ -13,7 +13,7 @@ import BiasController from "./bias_controller.js";
 let myMap;
 let markerAddress;
 let viewpointAddress;
-let componentsRestriction = [];
+let componentsRestriction = ['fr'];
 let detailsPublicId;
 let location;
 let biasCircle;
