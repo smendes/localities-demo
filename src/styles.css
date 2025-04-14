@@ -80,24 +80,6 @@ p {
 
 .autocomplete-results-container {
   display: none;
-  /* passe à 'block' ou 'flex' via JS si besoin */
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-}
-
-.autocomplete-results {
-  display: flex;
-  background-color: #fff;
-  min-width: 300px;
-  overflow-y: auto;
-  max-height: 600px;
-}
-
-.autocomplete-results-compare {
-  display: flex;
-  background-color: #fff;
-  min-width: 300px;
-  overflow-y: auto;
-  max-height: 600px;
 }
 
 .autocomplete-title {
@@ -192,7 +174,7 @@ p {
 }
 
 
-.suggestions-list .suggestions-list-compare{
+.suggestions-list {
   border-radius: 12px;
   box-shadow: 0 2px 4px #0003, 0 -1px #00000005;
   box-sizing: border-box;
