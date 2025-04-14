@@ -24,6 +24,10 @@ export function getTargetEnvironment() {
   return environments[selectedEnvironment];
 }
 
+export function getProdEnvironment() {
+  return environments['prod'];
+}
+
 document.getElementById("env-select").addEventListener("change", (e) => {
   if (document.getElementById("env-select").value === "pr") {
     targetPR = prompt("Which PR should we target today?");
