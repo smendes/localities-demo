@@ -2,7 +2,9 @@ import { isoCountries } from "./countries.js";
 import {
   debounce,
   autocompleteAddress,
-  getDetailsAddress
+  getDetailsAddress,
+  autocompleteAddressInProd,
+  getDetailsAddressInProd
 } from "./autocomplete.js";
 import { getTargetEnpoint } from "./endpoint_select.js";
 import {
@@ -84,10 +86,9 @@ function requestDetailsAddress(public_id) {
   });
 }
 
-function displayAddress() {
+function displayAddress(inProd) {
   detailsPublicId = null;
   const value = document.getElementById("input").value;
-  const results = document.querySelector(".autocomplete-results");
 
   let components = componentsRestriction.map(({ id }) => `country:${id}`);
   components = components.join("|");
@@ -96,6 +97,8 @@ function displayAddress() {
     .map((o) => o.value)
     .join("|");
 
+  const results = document.querySelector(".autocomplete-results");
+
   autocompleteAddress(
     value,
     components,
@@ -103,7 +106,22 @@ function displayAddress() {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then((response) => {
+  ).then((response) => fetchSuggestions(results));
+
+
+  const resultsCompare = document.querySelector(".autocomplete-results-compare");
+
+  autocompleteAddressInProd(
+    value,
+    components,
+    types,
+    extended,
+    biasController.getLocation(),
+    biasController.getRadius()
+  ).then((response) => fetchSuggestions(resultsCompare));
+}
+
+function fetchSuggestions(results) {
     const endpoint = getTargetEnpoint();
     results.innerHTML = "";
     results.parentElement.style.display = "none";
@@ -161,8 +179,7 @@ function displayAddress() {
         requestDetailsAddress(predictionId);
       });
     }
-  });
-}
+  }
 
 function bold_matched_substring(string, matched_substrings) {
   if (matched_substrings) {
