@@ -52,7 +52,6 @@ p {
 .autocomplete-input-container {
   position: absolute;
   top: 10px;
-  width: 300px;
   margin-left: 1%;
   margin-right: auto;
   left: 0;
@@ -180,7 +179,6 @@ p {
   border-radius: 12px;
   box-shadow: 0 2px 4px #0003, 0 -1px #00000005;
   box-sizing: border-box;
-  position: absolute;
   max-width: 320px;
   width: 100%;
   top: 100%;
