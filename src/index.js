@@ -171,11 +171,12 @@ function fetchSuggestions(response, isProd) {
     const data = results.querySelectorAll(".prediction");
 
     for (let result of data) {
+      const name = result.querySelector('localities-result-title').textContent
       result.addEventListener("click", () => {
         results.style.display = "none";
         results.parentElement.style.display = "none";
         const predictionId = result.getAttribute("prediction-id");
-        document.getElementById("input").value = result.textContent.trim();
+        document.getElementById("input").value = name;
         requestDetails(predictionId);
       });
     }
