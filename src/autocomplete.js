@@ -32,8 +32,10 @@ export function autocompleteAddress(
   if (extended) {
     args.extended = "postal_code";
   }
-  if (env.endpoint == "search") {
+  if (endpoint == "search") {
     args.location = "0,0";
+  } else if (endpoint == "geocode") {
+    args.address = input;
   }
   if (location) {
     args.location = location;
