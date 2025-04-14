@@ -126,7 +126,7 @@ function displayAddress() {
         );
       } else {
         if (endpoint == "search") {
-          formatted_name = prediction["title"] + " (" + prediction["description"] + ")";
+          formatted_name = prediction["title"] + " - " + prediction["description"];
         }
         else {
           formatted_name = prediction["description"];
