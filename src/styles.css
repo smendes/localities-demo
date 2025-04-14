@@ -90,6 +90,14 @@ p {
   max-height: 600px;
 }
 
+.autocomplete-results-compare {
+  display: flex;
+  background-color: #fff;
+  min-width: 300px;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
 .autocomplete-title {
   font-weight: bold;
   padding: 8px;
