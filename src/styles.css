@@ -192,7 +192,7 @@ p {
 }
 
 
-#suggestions-list {
+#suggestions-list #suggestions-list-compare{
   border-radius: 12px;
   box-shadow: 0 2px 4px #0003, 0 -1px #00000005;
   box-sizing: border-box;

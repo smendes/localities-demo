@@ -137,19 +137,12 @@ function fetchSuggestions(response, isProd) {
     let matched_substrings = prediction.matched_substrings;
     let formatted_name = "";
     let formatted_description = "";
-    if (prediction.matched_substrings) {
-      formatted_name = bold_matched_substring(
-        prediction["description"],
-        matched_substrings.description
-      );
-    } else {
-      if (endpoint == "search") {
-        formatted_name = prediction["title"];
-        formatted_description = prediction["description"];
-      }
-      else {
-        formatted_name = prediction["description"];
-      }
+    if (endpoint == "search") {
+      formatted_name = prediction["title"];
+      formatted_description = prediction["description"];
+    }
+    else {
+      formatted_name = prediction["description"];
     }
     if (prediction.postal_codes) {
       formatted_name += ` (${prediction.postal_codes.join(", ")})`;
