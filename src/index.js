@@ -4,7 +4,7 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
-import getTargetEnpoint from "./endpoint_select.js";
+import { getTargetEnpoint } from "./endpoint_select.js";
 import {
   localitiesReverseGeocode
 } from "./geocode.js";
