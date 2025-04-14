@@ -9,7 +9,7 @@ if (queryParams.get("language") != null) {
 }
 
 
-export function autocompleteAddress(
+export function autocompleteSearch(
   input,
   components,
   types,
@@ -50,20 +50,13 @@ export function autocompleteAddress(
   if (types !== "") {
     args.types = types;
   }
-  //args.types = "address|locality|postal_code";
-  //args.types = "locality";
-  //args.types = "locality|postal_code";
-  // args.types = "address";
-  //args.types = "poi|airport|hospital";
-  //args.types = "hospital";
-  //args.types = "country|admin_level";
 
   return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
 }
 
-export function autocompleteAddressInProd(
+export function autocompleteSearchInProd(
   input,
   components,
   types,
@@ -104,13 +97,6 @@ export function autocompleteAddressInProd(
   if (types !== "") {
     args.types = types;
   }
-  //args.types = "address|locality|postal_code";
-  //args.types = "locality";
-  //args.types = "locality|postal_code";
-  // args.types = "address";
-  //args.types = "poi|airport|hospital";
-  //args.types = "hospital";
-  //args.types = "country|admin_level";
 
   return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
@@ -118,7 +104,7 @@ export function autocompleteAddressInProd(
 }
 
 
-export function getDetailsAddress(publicId, fields) {
+export function getDetails(publicId, fields) {
   const env = getTargetEnvironment();
   const args = {
     key: env.woosmap_key,
@@ -136,7 +122,7 @@ export function getDetailsAddress(publicId, fields) {
   );
 }
 
-export function getDetailsAddressInProd(publicId, fields) {
+export function getDetailsInProd(publicId, fields) {
   const env = getProdEnvironment();
   const args = {
     key: env.woosmap_key,

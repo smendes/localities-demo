@@ -1,9 +1,9 @@
 import { isoCountries } from "./countries.js";
 import {
   debounce,
-  autocompleteAddress,
-  getDetailsAddress,
-  autocompleteAddressInProd
+  autocompleteSearch,
+  getDetails,
+  autocompleteSearchInProd
 } from "./autocomplete.js";
 import { getTargetEnpoint } from "./endpoint_select.js";
 import {
@@ -14,23 +14,21 @@ import BiasController from "./bias_controller.js";
 let myMap;
 let markerAddress;
 let componentsRestriction = [];
-let viewpointAddress;
 let detailsPublicId;
-let location;
 let biasCircle;
 let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
 
 let extended = false;
 
-function requestDetailsAddress(public_id) {
+function requestDetails(public_id) {
   detailsPublicId = public_id;
   const fields = [
     ...document.querySelectorAll('input[name="fields"]:checked')
   ].map((e) => e.value);
 
-  getDetailsAddress(public_id, fields.join("|")).then((addressDetails) => {
-    displayAddressDetails(addressDetails.result);
+  getDetails(public_id, fields.join("|")).then((addressDetails) => {
+    displayResultDetails(addressDetails.result);
 
     let lat = addressDetails.result.geometry.location.lat;
     let lng = addressDetails.result.geometry.location.lng;
@@ -85,7 +83,7 @@ function requestDetailsAddress(public_id) {
   });
 }
 
-function displayAddress(inProd) {
+function displayResult(inProd) {
   detailsPublicId = null;
   const value = document.getElementById("input").value;
 
@@ -96,7 +94,7 @@ function displayAddress(inProd) {
     .map((o) => o.value)
     .join("|");
 
-  autocompleteAddress(
+  autocompleteSearch(
     value,
     components,
     types,
@@ -105,7 +103,7 @@ function displayAddress(inProd) {
     biasController.getRadius()
   ).then((response) => fetchSuggestions(response, false));
 
-  autocompleteAddressInProd(
+  autocompleteSearchInProd(
     value,
     components,
     types,
@@ -178,7 +176,7 @@ function fetchSuggestions(response, isProd) {
         results.parentElement.style.display = "none";
         const predictionId = result.getAttribute("prediction-id");
         document.getElementById("input").value = result.textContent.trim();
-        requestDetailsAddress(predictionId);
+        requestDetails(predictionId);
       });
     }
   }
@@ -203,7 +201,7 @@ function bold_matched_substring(string, matched_substrings) {
   return string;
 }
 
-function displayAddressDetails(addressDetails) {
+function displayResultDetails(addressDetails) {
   const detailsHTML = document.querySelector(".addressDetails");
   detailsHTML.innerHTML = "";
   detailsHTML.style.display = "block";
@@ -310,7 +308,7 @@ function initUI() {
       let value = this.value;
       value.replace('"', '\\"').replace(/^\s+|\s+$/g, "");
       if (value !== "") {
-        displayAddress(value);
+        displayResult(value);
       } else {
         results.innerHTML = "";
       }
@@ -347,7 +345,7 @@ function initUI() {
       } else {
         extended = false;
       }
-      displayAddress();
+      displayResult();
     },
     true
   );
@@ -380,7 +378,7 @@ function initUI() {
     (e) => {
       if (componentExpanded) {
         hideCountriesList();
-        displayAddress();
+        displayResult();
       }
     },
     false
@@ -397,7 +395,7 @@ function initUI() {
   );
   document.querySelector("#btnRestrict").addEventListener("click", (e) => {
     hideCountriesList();
-    displayAddress();
+    displayResult();
   });
   document.querySelectorAll(".country").forEach((country) => {
     country.addEventListener("click", (e) => {
@@ -448,7 +446,7 @@ function geocode(latlng) {
 
   localitiesReverseGeocode(latlng, components, types).then((response) => {
     console.log(response.results[0].formatted_address);
-    displayAddressDetails(response.results[0]);
+    displayResultDetails(response.results[0]);
   });
 
 }
