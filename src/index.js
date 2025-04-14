@@ -133,13 +133,14 @@ function fetchSuggestions(response, isProd) {
     let prediction_id = item.public_id
     let predictionClass = "no-viewpoint";
     let predictionTypes = item.types[0];
-
-    let matched_substrings = prediction.matched_substrings;
     let formatted_name = "";
     let formatted_description = "";
     if (endpoint == "search") {
       formatted_name = prediction["title"];
       formatted_description = prediction["description"];
+    }
+    else if (endpoint == "geocode"){
+      formatted_name = prediction["formatted_address"];
     }
     else {
       formatted_name = prediction["description"];
