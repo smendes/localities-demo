@@ -152,9 +152,8 @@ function displayAddress() {
         results.style.display = "none";
         results.parentElement.style.display = "none";
         const predictionId = parseInt(result.getAttribute("prediction-id"), 10);
-        const prediction = localities[predictionId];
-        document.getElementById("input").value = prediction.description;
-        requestDetailsAddress(prediction.public_id);
+        document.getElementById("input").value = result.textContent.trim();
+        requestDetailsAddress(predictionId);
       });
     }
   });
