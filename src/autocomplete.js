@@ -63,6 +63,61 @@ export function autocompleteAddress(
   );
 }
 
+export function autocompleteAddressInProd(
+  input,
+  components,
+  types,
+  extended,
+  location,
+  radius
+) {
+  const env = getTargetEnvironment();
+  const endpoint = getTargetEnpoint();
+  const args = {
+    key: env.woosmap_key,
+    input,
+    //language: lang,
+    //cc_format: "alpha2",
+    //no_deprecated_fields: "true"
+    //extended: "postal_code",
+    data: "advanced",
+  };
+
+  if (extended) {
+    args.extended = "postal_code";
+  }
+  if (endpoint == "search") {
+    args.location = "0,0";
+  } else if (endpoint == "geocode") {
+    args.address = input;
+  }
+  if (location) {
+    args.location = location;
+  }
+  if (radius) {
+    args.radius = radius;
+  }
+
+  if (components !== "") {
+    args.components = components;
+  }
+  if (types !== "") {
+    args.types = types;
+  }
+  //args.types = "address|locality|postal_code";
+  //args.types = "locality";
+  //args.types = "locality|postal_code";
+  // args.types = "address";
+  //args.types = "poi|airport|hospital";
+  //args.types = "hospital";
+  //args.types = "country|admin_level";
+  
+  return fetch(`https://api.woosmap.com/${endpoint}/?${buildQueryString(args)}`).then(
+    (response) => response.json()
+  );
+}
+
+
 export function getDetailsAddress(publicId, fields) {
   const env = getTargetEnvironment();
   const args = {
@@ -77,6 +132,24 @@ export function getDetailsAddress(publicId, fields) {
   }
 
   return fetch(`${env.url}details/?${buildQueryString(args)}`).then(
+    (response) => response.json()
+  );
+}
+
+export function getDetailsAddressInProd(publicId, fields) {
+  const env = getTargetEnvironment();
+  const args = {
+    key: env.woosmap_key,
+    language: lang,
+    public_id: publicId,
+    //fields: "geometry"
+  };
+
+  if (fields) {
+    args.fields = fields;
+  }
+
+  return fetch(`https://api.woosmap.com/details/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
 }
