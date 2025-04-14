@@ -96,7 +96,7 @@ function displayAddress(inProd) {
   types = Array.from(types_change.selectedOptions)
     .map((o) => o.value)
     .join("|");
-  
+
   autocompleteAddress(
     value,
     components,
@@ -123,66 +123,66 @@ function fetchSuggestions(response, isProd) {
   else {
     const resultsCompare = document.querySelector(".autocomplete-results-compare");
   }
-    const endpoint = getTargetEnpoint();
-    results.innerHTML = "";
-    results.parentElement.style.display = "none";
-    let html = "";
-    let items = [];
-    if (endpoint == "search") {items = response.results} else {items = response.localities}
-    for (let item of items) {
-      console.log("localities " + endpoint + ":",item);
-      let prediction = item;
-      let prediction_id = item.public_id
-      let predictionClass = "no-viewpoint";
-      let predictionTypes = item.types[0];
+  const endpoint = getTargetEnpoint();
+  results.innerHTML = "";
+  results.parentElement.style.display = "none";
+  let html = "";
+  let items = [];
+  if (endpoint == "search") { items = response.results } else { items = response.localities }
+  for (let item of items) {
+    console.log("localities " + endpoint + ":", item);
+    let prediction = item;
+    let prediction_id = item.public_id
+    let predictionClass = "no-viewpoint";
+    let predictionTypes = item.types[0];
 
-      let matched_substrings = prediction.matched_substrings;
-      let formatted_name = "";
-      if (prediction.matched_substrings) {
-        formatted_name = bold_matched_substring(
-          prediction["description"],
-          matched_substrings.description
-        );
-      } else {
-        if (endpoint == "search") {
-          formatted_name = prediction["title"] + " - " + prediction["description"];
-        }
-        else {
-          formatted_name = prediction["description"];
-        }
+    let matched_substrings = prediction.matched_substrings;
+    let formatted_name = "";
+    if (prediction.matched_substrings) {
+      formatted_name = bold_matched_substring(
+        prediction["description"],
+        matched_substrings.description
+      );
+    } else {
+      if (endpoint == "search") {
+        formatted_name = prediction["title"] + " - " + prediction["description"];
       }
-      if (prediction.postal_codes) {
-        formatted_name += ` (${prediction.postal_codes.join(", ")})`;
+      else {
+        formatted_name = prediction["description"];
       }
-      if (prediction.viewpoint) {
-        predictionClass = "has-viewpoint";
-      }
-      if (prediction.subtypes) {
-        for (let subtype of prediction.subtypes) {
-          predictionTypes += "," + subtype;
-        }
-      }
-      html += `<div class="prediction ${predictionClass}" prediction-id=${prediction_id}>${formatted_name} (${predictionTypes})</div>`;
     }
-
-    results.innerHTML = html;
-    results.style.display = "block";
-    results.parentElement.style.display = "flex";
-
-    if (isProd) {
-      const data = results.querySelectorAll(".prediction").;
-  
-      for (let result of data) {
-        result.addEventListener("click", () => {
-          results.style.display = "none";
-          results.parentElement.style.display = "none";
-          const predictionId = result.getAttribute("prediction-id");
-          document.getElementById("input").value = result.textContent.trim();
-          requestDetailsAddress(predictionId);
-        });
+    if (prediction.postal_codes) {
+      formatted_name += ` (${prediction.postal_codes.join(", ")})`;
+    }
+    if (prediction.viewpoint) {
+      predictionClass = "has-viewpoint";
+    }
+    if (prediction.subtypes) {
+      for (let subtype of prediction.subtypes) {
+        predictionTypes += "," + subtype;
       }
+    }
+    html += `<div class="prediction ${predictionClass}" prediction-id=${prediction_id}>${formatted_name} (${predictionTypes})</div>`;
+  }
+
+  results.innerHTML = html;
+  results.style.display = "block";
+  results.parentElement.style.display = "flex";
+
+  if (isProd) {
+    const data = results.querySelectorAll(".prediction").;
+
+    for (let result of data) {
+      result.addEventListener("click", () => {
+        results.style.display = "none";
+        results.parentElement.style.display = "none";
+        const predictionId = result.getAttribute("prediction-id");
+        document.getElementById("input").value = result.textContent.trim();
+        requestDetailsAddress(predictionId);
+      });
     }
   }
+}
 
 function bold_matched_substring(string, matched_substrings) {
   if (matched_substrings) {
@@ -347,9 +347,9 @@ function initUI() {
     "change",
     (e) => {
       if (extendedCheckbox.checked) {
-        extended=true;
+        extended = true;
       } else {
-        extended=false;
+        extended = false;
       }
       displayAddress();
     },
@@ -449,11 +449,11 @@ function geocode(latlng) {
   types = Array.from(types_change.selectedOptions)
     .map((o) => o.value)
     .join("|");
-  
-  localitiesReverseGeocode(latlng,components,types).then((response) => {
-            console.log(response.results[0].formatted_address);
-            displayAddressDetails(response.results[0]);
-      });
+
+  localitiesReverseGeocode(latlng, components, types).then((response) => {
+    console.log(response.results[0].formatted_address);
+    displayAddressDetails(response.results[0]);
+  });
 
 }
 

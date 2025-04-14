@@ -33,7 +33,7 @@ p {
   bottom: 55px;
 }
 
-.options > label {
+.options>label {
   display: block;
   padding: 5px;
 }
@@ -60,7 +60,7 @@ p {
   border-radius: 3px;
 }
 
-.autocomplete-input > input {
+.autocomplete-input>input {
   border: none;
   padding: 10px;
   border-radius: 3px;
@@ -68,17 +68,19 @@ p {
   width: 280px;
 }
 
-.autocomplete-input > input:focus {
+.autocomplete-input>input:focus {
   outline: none;
 }
 
 .autocomplete-results-wrapper {
   display: flex;
-  gap: 16px; /* espace entre les deux conteneurs */
+  gap: 16px;
+  /* espace entre les deux conteneurs */
 }
 
 .autocomplete-results-container {
-  display: none; /* passe à 'block' ou 'flex' via JS si besoin */
+  display: none;
+  /* passe à 'block' ou 'flex' via JS si besoin */
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 

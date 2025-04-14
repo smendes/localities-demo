@@ -4,9 +4,9 @@ const lang = "fr";
 
 const queryParams = new URLSearchParams(window.location.search);
 
-  if (queryParams.get("language") != null) {
-    lang = queryParams.get("language");
-  }
+if (queryParams.get("language") != null) {
+  lang = queryParams.get("language");
+}
 
 
 export function autocompleteAddress(
@@ -57,7 +57,7 @@ export function autocompleteAddress(
   //args.types = "poi|airport|hospital";
   //args.types = "hospital";
   //args.types = "country|admin_level";
-  
+
   return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
@@ -111,7 +111,7 @@ export function autocompleteAddressInProd(
   //args.types = "poi|airport|hospital";
   //args.types = "hospital";
   //args.types = "country|admin_level";
-  
+
   return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
