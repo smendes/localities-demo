@@ -4,6 +4,7 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
+import dd from "./endpoint_select.js";
 import {
   localitiesReverseGeocode
 } from "./geocode.js";
@@ -102,12 +103,14 @@ function displayAddress() {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then((localities) => {
+  ).then((response) => {
     results.innerHTML = "";
     results.parentElement.style.display = "none";
-    console.log("localities results:",localities);
     let html = "";
-    for (let item in localities || []) {
+    let items = [];
+    if (endpoint == "search") {items = response.results} else {items = response.localities}
+    console.log("localities results:",items);
+    for (let item in localities) {
       let prediction = item;
       let prediction_id = item.public_id
       let predictionClass = "no-viewpoint";
