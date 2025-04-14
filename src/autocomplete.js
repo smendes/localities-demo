@@ -1,4 +1,4 @@
-import { getTargetEnvironment } from "./environment_select.js";
+import { getTargetEnvironment, getProdEnvironment } from "./environment_select.js";
 import { getTargetEnpoint } from "./endpoint_select.js";
 const lang = "fr";
 
@@ -71,7 +71,7 @@ export function autocompleteAddressInProd(
   location,
   radius
 ) {
-  const env = getTargetEnvironment();
+  const env = getProdEnvironment();
   const endpoint = getTargetEnpoint();
   const args = {
     key: env.woosmap_key,
@@ -112,7 +112,7 @@ export function autocompleteAddressInProd(
   //args.types = "hospital";
   //args.types = "country|admin_level";
   
-  return fetch(`https://api.woosmap.com/${endpoint}/?${buildQueryString(args)}`).then(
+  return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
 }
@@ -137,7 +137,7 @@ export function getDetailsAddress(publicId, fields) {
 }
 
 export function getDetailsAddressInProd(publicId, fields) {
-  const env = getTargetEnvironment();
+  const env = getProdEnvironment();
   const args = {
     key: env.woosmap_key,
     language: lang,
@@ -149,7 +149,7 @@ export function getDetailsAddressInProd(publicId, fields) {
     args.fields = fields;
   }
 
-  return fetch(`https://api.woosmap.com/details/?${buildQueryString(args)}`).then(
+  return fetch(`${env.url}details/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
 }
