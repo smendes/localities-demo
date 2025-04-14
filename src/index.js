@@ -4,7 +4,7 @@ import {
   autocompleteAddress,
   getDetailsAddress
 } from "./autocomplete.js";
-import dd from "./endpoint_select.js";
+import getTargetEnpoint from "./endpoint_select.js";
 import {
   localitiesReverseGeocode
 } from "./geocode.js";
@@ -21,6 +21,8 @@ let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
 
 let extended = false;
+
+let endpoint = getTargetEnpoint();
 
 function requestDetailsAddress(public_id) {
   detailsPublicId = public_id;
