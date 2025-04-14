@@ -157,7 +157,7 @@ function fetchSuggestions(response, isProd) {
                 <div class="localities-result-title">
                   ${formatted_name}
                   <span class="localities-result-description">${formatted_description}</span>
-                  <span class="localities-result-type">${predictionTypes}</span>
+                  <span class="localities-result-${prediction.categories ? "category" : "type"}">${predictionTypes}</span>
                 </div>
               </li>`;
   }
