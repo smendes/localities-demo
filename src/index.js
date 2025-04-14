@@ -96,9 +96,7 @@ function displayAddress(inProd) {
   types = Array.from(types_change.selectedOptions)
     .map((o) => o.value)
     .join("|");
-
-  const results = document.querySelector(".autocomplete-results");
-
+  
   autocompleteAddress(
     value,
     components,
@@ -106,10 +104,7 @@ function displayAddress(inProd) {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then((response) => fetchSuggestions(response, results));
-
-
-  const resultsCompare = document.querySelector(".autocomplete-results-compare");
+  ).then((response) => fetchSuggestions(response, false));
 
   autocompleteAddressInProd(
     value,
@@ -118,10 +113,16 @@ function displayAddress(inProd) {
     extended,
     biasController.getLocation(),
     biasController.getRadius()
-  ).then((response) => fetchSuggestions(response, resultsCompare));
+  ).then((response) => fetchSuggestions(response, true));
 }
 
-function fetchSuggestions(response, results) {
+function fetchSuggestions(response, isProd) {
+  if (isProd) {
+    const results = document.querySelector(".autocomplete-results");
+  }
+  else {
+    const resultsCompare = document.querySelector(".autocomplete-results-compare");
+  }
     const endpoint = getTargetEnpoint();
     results.innerHTML = "";
     results.parentElement.style.display = "none";
@@ -168,16 +169,18 @@ function fetchSuggestions(response, results) {
     results.style.display = "block";
     results.parentElement.style.display = "flex";
 
-    const data = results.querySelectorAll(".prediction");
-
-    for (let result of data) {
-      result.addEventListener("click", () => {
-        results.style.display = "none";
-        results.parentElement.style.display = "none";
-        const predictionId = result.getAttribute("prediction-id");
-        document.getElementById("input").value = result.textContent.trim();
-        requestDetailsAddress(predictionId);
-      });
+    if (isProd) {
+      const data = results.querySelectorAll(".prediction").;
+  
+      for (let result of data) {
+        result.addEventListener("click", () => {
+          results.style.display = "none";
+          results.parentElement.style.display = "none";
+          const predictionId = result.getAttribute("prediction-id");
+          document.getElementById("input").value = result.textContent.trim();
+          requestDetailsAddress(predictionId);
+        });
+      }
     }
   }
 
