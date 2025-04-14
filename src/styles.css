@@ -72,6 +72,16 @@ p {
   outline: none;
 }
 
+.autocomplete-results-wrapper {
+  display: flex;
+  gap: 16px; /* espace entre les deux conteneurs */
+}
+
+.autocomplete-results-container {
+  display: none; /* passe à 'block' ou 'flex' via JS si besoin */
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
 .autocomplete-results {
   display: flex;
   background-color: #fff;
@@ -80,9 +90,11 @@ p {
   max-height: 600px;
 }
 
-.autocomplete-results-container {
-  display: none;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+.autocomplete-title {
+  font-weight: bold;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
 }
 
 .prediction {
