@@ -1,4 +1,5 @@
 import { getTargetEnvironment } from "./environment_select.js";
+import { getTargetEnpoint } from "./endpoint_select.js";
 const lang = "fr";
 
 const queryParams = new URLSearchParams(window.location.search);
@@ -17,6 +18,7 @@ export function autocompleteAddress(
   radius
 ) {
   const env = getTargetEnvironment();
+  const endpoint = getTargetEnpoint();
   const args = {
     key: env.woosmap_key,
     input,
@@ -54,7 +56,7 @@ export function autocompleteAddress(
   //args.types = "hospital";
   //args.types = "country|admin_level";
   
-  return fetch(`${env.url}${env.endpoint}/?${buildQueryString(args)}`).then(
+  return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
 }
