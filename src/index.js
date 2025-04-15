@@ -286,6 +286,7 @@ function initUI() {
   const input = document.querySelector(".autocomplete-input > input");
   const extendedCheckbox = document.getElementById("extended-checkbox");
   const biasCheckbox = document.getElementById("bias-checkbox");
+  const biasMapCenterCheckbox = document.getElementById("bias-map-center-checkbox");
 
   var types_select = $(document.getElementById("types-select")).selectize({
     create: true,
