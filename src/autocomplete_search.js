@@ -51,6 +51,8 @@ export function autocompleteSearch(
     args.types = types;
   }
 
+  console.log("autocompleteSearch - args", args)
+
   return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
     (response) => response.json()
   );
@@ -80,7 +82,6 @@ export function autocompleteSearchInProd(
     args.extended = "postal_code";
   }
   if (endpoint == "search") {
-    console.log("autocompleteSearchInProd",window.Map.getCenter());
     args.location = "0,0";
   } else if (endpoint == "geocode") {
     args.address = input;

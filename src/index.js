@@ -99,7 +99,7 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasController.getLocation(),
+    biasController.getLocation() ? biasController.getLocation() : myMap.getCenter(),
     biasController.getRadius()
   ).then((response) => fetchSuggestions(response, false));
 
@@ -108,7 +108,7 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasController.getLocation(),
+    biasController.getLocation() ? biasController.getLocation() : myMap.getCenter(),
     biasController.getRadius()
   ).then((response) => fetchSuggestions(response, true));
 }
