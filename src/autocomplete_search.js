@@ -83,7 +83,7 @@ export function autocompleteSearchInProd(
     args.address = input;
   }
   if (location) {
-    args.location = location;
+    args.location = location.lat() + "," + location.lng();
   }
   if (radius) {
     args.radius = radius;

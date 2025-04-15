@@ -91,7 +91,7 @@ function displayResult(inProd) {
     .join("|");
 
   autocompleteSearch(
-    value,
+    value,  
     components,
     types,
     extended,
