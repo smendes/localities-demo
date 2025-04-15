@@ -358,6 +358,19 @@ function initUI() {
     },
     true
   );
+
+  biasMapCenterCheckbox.addEventListener(
+    "change",
+    (e) => {
+      if (biasCheckbox.checked) {
+        enableBias(myMap.getCenter());
+      } else {
+        disableBias();
+      }
+    },
+    true
+  );
+
   disableBias();
   document.getElementById("bias-radius-input").value = biasController.radius;
   document
