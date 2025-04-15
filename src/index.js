@@ -350,6 +350,9 @@ function initUI() {
       toggleCountry(country);
     });
   });
+  document.getElementById("close-error-modal").addEventListener("click", () => {
+    document.getElementById("error-modal").classList.add("hidden");
+  });
 }
 
 const script = document.createElement("script");
