@@ -96,9 +96,23 @@ export function autocompleteSearchInProd(
     args.types = types;
   }
 
-  return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`).then(
-    (response) => response.json()
-  );
+  return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`)
+  .then(async (response) => {
+    const data = await response.json();
+    if (!response.ok) {
+      const details = data?.details;
+      const message = details
+        ? `<pre>${JSON.stringify(details, null, 2)}</pre>`
+        : "Erreur API inconnue.";
+      showErrorModal(message);
+    }
+
+    return data;
+  })
+  .catch((err) => {
+    // Cas erreur réseau ou JSON cassé
+    showErrorModal(err.message || "Une erreur réseau est survenue.");
+  });
 }
 
 
@@ -115,9 +129,23 @@ export function getDetails(publicId, fields) {
     args.fields = fields;
   }
 
-  return fetch(`${env.url}details/?${buildQueryString(args)}`).then(
-    (response) => response.json()
-  );
+  return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`)
+  .then(async (response) => {
+    const data = await response.json();
+    if (!response.ok) {
+      const details = data?.details;
+      const message = details
+        ? `<pre>${JSON.stringify(details, null, 2)}</pre>`
+        : "Erreur API inconnue.";
+      showErrorModal(message);
+    }
+
+    return data;
+  })
+  .catch((err) => {
+    // Cas erreur réseau ou JSON cassé
+    showErrorModal(err.message || "Une erreur réseau est survenue.");
+  });
 }
 
 export function getDetailsInProd(publicId, fields) {
