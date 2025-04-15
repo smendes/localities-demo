@@ -148,6 +148,13 @@ export function getDetails(publicId, fields) {
   });
 }
 
+function showErrorModal(messageHtml) {
+  const modal = document.getElementById("error-modal");
+  const msg = document.getElementById("error-message");
+  msg.innerHTML = messageHtml; // pas textContent ici
+  modal.classList.remove("hidden");
+}
+
 export function getDetailsInProd(publicId, fields) {
   const env = getProdEnvironment();
   const args = {
