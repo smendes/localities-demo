@@ -50,21 +50,6 @@
         <option value="admin_level">Admin Level</option>
         <option value="point_of_interest">POI</option>
       </select>
-      <label class="bold">Geographic bias</label>
-      <div>
-        <input type="checkbox" id="bias-checkbox" name="bias" value="bias" />
-        <label for="bias">Manually defined</label>
-      </div>
-      <div>
-        <input type="checkbox" id="bias-map-center-checkbox" name="bias-map-center" value="bias-map-center" />
-        <label for="bias-map-center">Center of the map</label>
-      </div>
-      <div id="bias-params">
-        <label id="bias-location-label" for="bias-location-input" class="bold">Location</label>
-        <input id="bias-location-input" type="text" placeholder="Bias coordinates" />
-        <label for="bias-location-label" for="bias-radius-input" class="bold">Radius</label>
-        <input id="bias-radius-input" type="text" placeholder="Bias radius" />
-      </div>
       <label class="bold">Additional parameters</label>
       <div>
         <input type="checkbox" id="extended-checkbox" name="extended" value="extended" />
@@ -102,7 +87,6 @@
   <script type="module" src="src/index.js"></script>
   <script type="module" src="src/autocomplete.js"></script>
   <script type="module" src="src/countries.js"></script>
-  <script type="module" src="src/bias_controller.js"></script>
   <script type="module" src="src/environment_select.js"></script>
 </body>
 

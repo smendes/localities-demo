@@ -22,10 +22,6 @@ export function autocompleteSearch(
   const args = {
     key: env.woosmap_key,
     input,
-    //language: lang,
-    //cc_format: "alpha2",
-    //no_deprecated_fields: "true"
-    //extended: "postal_code",
     data: "advanced",
   };
 
@@ -38,7 +34,7 @@ export function autocompleteSearch(
     args.address = input;
   }
   if (location) {
-    args.location = location;
+    args.location = location.lat + "," + location.lng;
   }
   if (radius) {
     args.radius = radius;

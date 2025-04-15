@@ -9,14 +9,10 @@ import { getTargetEnpoint } from "./endpoint_select.js";
 import {
   localitiesReverseGeocode
 } from "./geocode.js";
-import "./bias_controller.js";
-import BiasController from "./bias_controller.js";
 let myMap;
 let markerDetailsResult;
 let componentsRestriction = [];
 let detailsPublicId;
-let biasCircle;
-let biasController = new BiasController();
 let types_change = document.getElementById("types-select");
 
 let extended = false;
@@ -99,8 +95,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasController.getLocation() ? biasController.getLocation() : myMap.getCenter(),
-    biasController.getRadius()
+    myMap.getCenter(),
+    10000
   ).then((response) => fetchSuggestions(response, false));
 
   autocompleteSearchInProd(
@@ -108,8 +104,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasController.getLocation() ? biasController.getLocation() : myMap.getCenter(),
-    biasController.getRadius()
+    myMap.getCenter(),
+    10000
   ).then((response) => fetchSuggestions(response, true));
 }
 
@@ -256,28 +252,6 @@ function toggleCountry(country) {
       : "No active restrictions...";
 }
 
-function enableBias(location) {
-  console.log("enableBias", location);
-  if (location) {
-    biasController.setBias(
-      location,
-      document.getElementById("bias-radius-input").value
-    );
-  } else {
-    biasController.enable();
-  }
-  biasCircle.setMap(myMap);
-  document.getElementById("bias-location-input").value =
-    biasController.location;
-  document.getElementById("bias-params").style.display = "block";
-}
-function disableBias() {
-  biasController.disable();
-  document.getElementById("bias-params").style.display = "none";
-  if (biasCircle) {
-    biasCircle.setMap(null);
-  }
-}
 function initUI() {
   const multiSelect = document.querySelector(".multiselect");
   const countries = document.getElementById("countries");
@@ -286,8 +260,6 @@ function initUI() {
   const resultsCompare = document.querySelector(".suggestions-list-compare");
   const input = document.querySelector(".autocomplete-input > input");
   const extendedCheckbox = document.getElementById("extended-checkbox");
-  const biasCheckbox = document.getElementById("bias-checkbox");
-  const biasMapCenterCheckbox = document.getElementById("bias-map-center-checkbox");
 
   var types_select = $(document.getElementById("types-select")).selectize({
     create: true,
@@ -349,42 +321,6 @@ function initUI() {
     true
   );
 
-  biasCheckbox.addEventListener(
-    "change",
-    (e) => {
-      if (biasCheckbox.checked) {
-        enableBias();
-      } else {
-        disableBias();
-      }
-    },
-    true
-  );
-
-  biasMapCenterCheckbox.addEventListener(
-    "change",
-    (e) => {
-      if (biasMapCenterCheckbox.checked) {
-        enableBias(myMap.getCenter());
-      } else {
-        disableBias();
-      }
-    },
-    true
-  );
-
-  disableBias();
-  document.getElementById("bias-radius-input").value = biasController.radius;
-  document
-    .getElementById("bias-radius-input")
-    .addEventListener("change", (e) => {
-      if (biasController.enabled) {
-        biasController.radius = document.getElementById(
-          "bias-radius-input"
-        ).value;
-        updateBiasCircle();
-      }
-    });
   overlayCb.addEventListener(
     "click",
     (e) => {
@@ -441,7 +377,6 @@ window.initMap = function () {
   });
 
   myMap.addListener("rightclick", (event) => {
-    updateBiasCircle(event.latlng);
   });
   myMap.addListener("click", (event) => {
     geocode(event.latlng);
@@ -464,31 +399,6 @@ function geocode(latlng) {
 
 }
 
-function updateBiasCircle(latlng) {
-  if (biasCircle == null) {
-    biasCircle = new window.woosmap.map.Circle({
-      strokeColor: "#b71c1c",
-      strokeOpacity: 0.5,
-      strokeWeight: 1,
-      fillColor: "#b71c1c",
-      fillOpacity: 0.3,
-      myMap,
-      center: latlng,
-      radius: biasController.getRadius()
-    });
-    biasCircle.setMap(myMap);
-  } else {
-    if (latlng) {
-      biasCircle.setCenter(latlng);
-    }
-    biasCircle.setRadius(biasController.getRadius());
-  }
-  if (!document.getElementById("bias-checkbox").checked) {
-    document.getElementById("bias-checkbox").checked = true;
-  }
-  const location = latlng ? `${latlng.lat},${latlng.lng}` : null;
-  enableBias(location);
-}
 document.head.appendChild(script);
 
 initUI();
