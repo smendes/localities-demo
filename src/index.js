@@ -364,7 +364,7 @@ function initUI() {
   biasMapCenterCheckbox.addEventListener(
     "change",
     (e) => {
-      if (biasCheckbox.checked) {
+      if (biasMapCenterCheckbox.checked) {
         enableBias(myMap.getCenter());
       } else {
         disableBias();
