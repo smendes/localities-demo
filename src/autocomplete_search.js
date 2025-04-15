@@ -34,7 +34,7 @@ export function autocompleteSearch(
     args.address = input;
   }
   if (location) {
-    args.location = location.lat + "," + location.lng;
+    args.location = location.lat() + "," + location.lng();
   }
   if (radius) {
     args.radius = radius;
