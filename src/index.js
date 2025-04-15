@@ -257,6 +257,7 @@ function toggleCountry(country) {
 }
 
 function enableBias(location) {
+  console.log("enableBias", location);
   if (location) {
     biasController.setBias(
       location,
