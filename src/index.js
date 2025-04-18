@@ -91,7 +91,7 @@ function displayResult(inProd) {
     .join("|");
 
   autocompleteSearch(
-    value,  
+    value,
     components,
     types,
     extended,
@@ -122,7 +122,7 @@ function fetchSuggestions(response, isProd) {
   results.parentElement.style.display = "none";
   let html = "";
   let items = [];
-  if (endpoint == "search" || endpoint == "geocode") { items = response.results } else { items = response.localities }
+  if (endpoint == "search" || endpoint == "geocode") { items = response.results } else { items = response.localities }
   for (let item of items) {
     console.log("localities " + endpoint + ":", item);
     let prediction = item;
@@ -135,7 +135,7 @@ function fetchSuggestions(response, isProd) {
       formatted_name = prediction["title"];
       formatted_description = prediction["description"];
     }
-    else if (endpoint == "geocode"){
+    else if (endpoint == "geocode") {
       formatted_name = prediction["formatted_address"];
     }
     else {
@@ -150,7 +150,7 @@ function fetchSuggestions(response, isProd) {
     if (prediction.categories) {
       predictionTypes = prediction.categories[0];
     }
-    html +=   `<li prediction-id=${prediction_id} class="prediction ${isProd ? "disabled" : ""}">
+    html += `<li prediction-id=${prediction_id} class="prediction ${isProd ? "disabled" : ""}">
                 <div class="localities-result-title">
                   ${formatted_name}
                   <span class="localities-result-description">${formatted_description}</span>
@@ -162,7 +162,7 @@ function fetchSuggestions(response, isProd) {
   results.innerHTML = html;
   results.style.display = "block";
   results.parentElement.style.display = "flex";
-  
+
   const data = results.querySelectorAll(".prediction");
 
   for (let result of data) {
@@ -181,7 +181,7 @@ function fetchSuggestions(response, isProd) {
       requestDetails(predictionId);
     });
   }
-  
+
 }
 
 function displayResultDetails(result) {
@@ -368,11 +368,11 @@ window.initMap = function () {
     disableDefaultUI: true,
     styles: [
       {
-        featureType: "poi",
-        elementType: "all",
-        stylers: [
+        "featureType": "point_of_interest",
+        "elementType": "all",
+        "stylers": [
           {
-            visibility: "on"
+            "visibility": "on"
           }
         ]
       }
