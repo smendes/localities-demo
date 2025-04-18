@@ -23,6 +23,7 @@ export function autocompleteSearch(
     key: env.woosmap_key,
     input,
     data: "advanced",
+    language: lang
   };
 
   if (extended) {
@@ -67,10 +68,7 @@ export function autocompleteSearchInProd(
   const args = {
     key: env.woosmap_key,
     input,
-    //language: lang,
-    //cc_format: "alpha2",
-    //no_deprecated_fields: "true"
-    //extended: "postal_code",
+    language: lang,
     data: "advanced",
   };
 
