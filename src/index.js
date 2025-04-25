@@ -16,6 +16,7 @@ let detailsPublicId;
 let types_change = document.getElementById("types-select");
 
 let extended = false;
+let biasEnabled = false;
 
 function requestDetails(public_id) {
   detailsPublicId = public_id;
@@ -95,8 +96,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    myMap.getCenter(),
-    10000
+    biasEnabled ? myMap.getCenter(),
+    biasEnabled ? 10000
   ).then((response) => fetchSuggestions(response, false));
 
   autocompleteSearchInProd(
@@ -104,8 +105,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    myMap.getCenter(),
-    10000
+    biasEnabled ? myMap.getCenter(),
+    biasEnabled ? 10000
   ).then((response) => fetchSuggestions(response, true));
 }
 
@@ -260,6 +261,7 @@ function initUI() {
   const resultsCompare = document.querySelector(".suggestions-list-compare");
   const input = document.querySelector(".autocomplete-input > input");
   const extendedCheckbox = document.getElementById("extended-checkbox");
+  const biasCheckbox = document.getElementById("bias-checkbox");
 
   var types_select = $(document.getElementById("types-select")).selectize({
     create: true,
@@ -304,6 +306,19 @@ function initUI() {
         hideCountriesList();
       }
       e.stopPropagation();
+    },
+    true
+  );
+
+  biasCheckbox..addEventListener(
+    "change",
+    (e) => {
+      if (biasCheckbox.checked) {
+        biasEnabled = true;
+      } else {
+        biasEnabled = false;
+      }
+      displayResult();
     },
     true
   );
