@@ -96,8 +96,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasEnabled ? myMap.getCenter(),
-    biasEnabled ? 10000
+    biasEnabled ?? myMap.getCenter(),
+    biasEnabled ?? 10000
   ).then((response) => fetchSuggestions(response, false));
 
   autocompleteSearchInProd(
@@ -105,8 +105,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasEnabled ? myMap.getCenter(),
-    biasEnabled ? 10000
+    biasEnabled ?? myMap.getCenter(),
+    biasEnabled ?? 10000
   ).then((response) => fetchSuggestions(response, true));
 }
 
@@ -310,7 +310,7 @@ function initUI() {
     true
   );
 
-  biasCheckbox..addEventListener(
+  biasCheckbox.addEventListener(
     "change",
     (e) => {
       if (biasCheckbox.checked) {
