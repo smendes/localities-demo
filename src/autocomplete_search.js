@@ -127,7 +127,7 @@ export function getDetails(publicId, fields) {
     args.fields = fields;
   }
 
-  return fetch(`${env.url}${endpoint}/?${buildQueryString(args)}`)
+  return fetch(`${env.url}details/?${buildQueryString(args)}`)
   .then(async (response) => {
     const data = await response.json();
     if (!response.ok) {
