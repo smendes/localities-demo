@@ -96,8 +96,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasEnabled ?? myMap.getCenter(),
-    biasEnabled ?? 10000
+    biasEnabled ? myMap.getCenter() : null,
+    biasEnabled ? 10000 : null
   ).then((response) => fetchSuggestions(response, false));
 
   autocompleteSearchInProd(
@@ -105,8 +105,8 @@ function displayResult(inProd) {
     components,
     types,
     extended,
-    biasEnabled ?? myMap.getCenter(),
-    biasEnabled ?? 10000
+    biasEnabled ? myMap.getCenter() : null,
+    biasEnabled ? 10000 : null
   ).then((response) => fetchSuggestions(response, true));
 }
 
