@@ -6,6 +6,7 @@ export const isoCountries = [
     { id: "DE", text: "Germany" },
     { id: "ES", text: "Spain" },
     { id: "BE", text: "Belgium" },
+    { id: "LU", text: "Luxembourg" },
     { id: "CH", text: "Switzerland" },
     { id: "NL", text: "Netherland" },
     { id: "US", text: "USA" },
