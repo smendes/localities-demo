@@ -110,6 +110,23 @@ function displayResult(inProd) {
   ).then((response) => fetchSuggestions(response, true));
 }
 
+function bold_matched_substring(string, matched_substrings) {
+    matched_substrings = matched_substrings.reverse();
+    for (let substring of matched_substrings) {
+        let char = string.substring(
+            substring["offset"],
+            substring["offset"] + substring["length"],
+        );
+        string = `${string.substring(
+            0,
+            substring["offset"],
+        )}<b>${char}</b>${string.substring(
+            substring["offset"] + substring["length"],
+        )}`;
+    }
+    return string;
+}
+
 function fetchSuggestions(response, isProd) {
   let results;
   if (isProd) {
@@ -139,6 +156,9 @@ function fetchSuggestions(response, isProd) {
     else if (endpoint == "geocode") {
       formatted_name = prediction["formatted_address"];
     }
+    else if (prediction["matched_substrings"] && prediction["matched_substrings"]["description"]) {
+      formatted_name = bold_matched_substring(prediction["description"], prediction["matched_substrings"]["description"]);
+    }
     else {
       formatted_name = prediction["description"];
     }
@@ -153,7 +173,7 @@ function fetchSuggestions(response, isProd) {
     }
     html += `<li prediction-id=${prediction_id} class="prediction ${isProd ? "disabled" : ""}">
                 <div class="localities-result-title">
-                  ${formatted_name}
+                  <span class="localities-result-name">${formatted_name}</span>
                   <span class="localities-result-description">${formatted_description}</span>
                   <span class="localities-result-${prediction.categories ? "category" : "type"}">${predictionTypes}</span>
                 </div>
