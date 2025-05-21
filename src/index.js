@@ -193,7 +193,13 @@ function fetchSuggestions(response, isProd) {
     const titleElement = result.querySelector('.localities-result-title');
     if (!titleElement) continue; // sécurité si l'élément est absent
 
-    const name = titleElement.textContent;
+    const nameElement = titleElement.querySelector('.localities-result-name');
+    const descriptionElement = titleElement.querySelector('.localities-result-description');
+    let name = nameElement.textContent;
+    if (descriptionElement) {
+      name += `, ${descriptionElement.textContent}`;
+    } 
+
     result.addEventListener("click", () => {
       results.style.display = "none";
       results.parentElement.style.display = "none";
